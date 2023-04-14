@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Customizer",
+  "version": "1.0",
+  "description": "Customize the appearance of the ChatGPT UI.",
+  "permissions": ["storage", "activeTab"],
+  "action": {
+    "default_popup": "settings.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://chat.openai.com/*/*", "*://chat.openai.com/*/"],
+      "js": ["content_script.js"],
+      "css": ["content_style.css"]
+    }
+  ]
+}
