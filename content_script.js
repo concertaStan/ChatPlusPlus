@@ -33,7 +33,7 @@ function applyCustomizations() {
 
 applyCustomizations();
 
-//This code snippet listens for any changes in the extension's storage and calls the applyCustomizations() function to update the website's appearance dynamically.
+// This code snippet listens for any changes in the extension's storage and calls the applyCustomizations() function to update the website's appearance dynamically.
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let key in changes) {
         let storageChange = changes[key];
@@ -41,50 +41,3 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     }
     applyCustomizations();
 });
-
-function createConfirmSendElement() {
-    const confirmSend = document.createElement('span');
-    confirmSend.id = 'confirm-send';
-    confirmSend.textContent = 'Confirm send?';
-    confirmSend.style.display = 'none';
-    confirmSend.style.color = 'red';
-    confirmSend.style.marginLeft = '8px';
-    return confirmSend;
-}
-
-function setInputFieldId() {
-    const inputField = document.querySelector('textarea[placeholder="Send a message..."]');
-    inputField.id = 'custom-input-field';
-}
-
-function injectConfirmSend() {
-    const inputField = document.getElementById('custom-input-field');
-    const inputContainer = inputField.parentElement;
-    const confirmSend = createConfirmSendElement();
-    inputContainer.insertBefore(confirmSend, inputField);
-}
-
-function handleInputKeyDown(e) {
-    const confirmSend = document.getElementById('confirm-send');
-    if (e.key === 'Enter') {
-        if (confirmSend.style.display === 'none') {
-            e.stopImmediatePropagation(); // Stop other event handlers from executing
-            e.preventDefault(); // Prevent the message from being sent
-            confirmSend.style.display = 'inline';
-        } else {
-            confirmSend.style.display = 'none';
-        }
-    } else if (e.key === 'Escape' || e.key === 'Backspace') {
-        confirmSend.style.display = 'none';
-    }
-}
-
-function addInputEventListener() {
-    const inputField = document.getElementById('custom-input-field');
-    inputField.addEventListener('keydown', handleInputKeyDown);
-}
-
-applyCustomizations();
-setInputFieldId();
-injectConfirmSend();
-addInputEventListener();
