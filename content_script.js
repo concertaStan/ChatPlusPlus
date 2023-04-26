@@ -1,5 +1,27 @@
 function applyCustomizations() {
-    chrome.storage.sync.get(['font', 'colors', 'backgroundImage', 'theme', 'backgroundImageUrl', 'backgroundOpacity'], function (data) {
+    chrome.storage.sync.get(['font', 'customFont', 'colors', 'backgroundImage', 'theme', 'backgroundImageUrl', 'backgroundOpacity'], function (data) {
+        if (data.customFont) {
+            const fontLink = document.createElement('link');
+            fontLink.href = `https://fonts.googleapis.com/css?family=${encodeURIComponent(data.customFont)}&display=swap`;
+            fontLink.rel = 'stylesheet';
+            document.head.appendChild(fontLink);
+            
+            // Check if the custom font is already in the font select element
+            const fontExists = [...document.getElementById('font').options].some(option => option.value === data.customFont);
+            if (!fontExists) {
+                // Add the custom font as an option in the font select element
+                const customFontOption = document.createElement('option');
+                customFontOption.value = data.customFont;
+                customFontOption.textContent = data.customFont;
+                document.getElementById('font').appendChild(customFontOption);
+            }
+        
+            // Set the font
+            document.body.style.fontFamily = data.customFont;
+        }
+        
+        
+
         if (data.font) {
             document.body.style.fontFamily = data.font;
         }
