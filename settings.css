@@ -4,3 +4,16 @@ html, body {
     height: 450px;
 }
 /* Add any additional custom styling if needed */
+
+#loadCustomFont {
+    border-radius: 8px;
+    height: 38px; /* Adjust this value to match the height of your other buttons */
+    width: 250px;
+}
+
+#customFont {
+    border-radius: 8px;
+    height: 38px; /* Adjust this value to match the height of your other buttons */
+    width: 250px;
+}
+

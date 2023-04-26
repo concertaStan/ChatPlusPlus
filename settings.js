@@ -14,9 +14,19 @@ function saveCustomizations() {
 }
 
 function loadCustomizations() {
-    chrome.storage.sync.get(['font', 'backgroundImageUrl', 'backgroundOpacity'], function (data) {
+    chrome.storage.sync.get(['font', 'customFont', 'backgroundImageUrl', 'backgroundOpacity'], function (data) {
         if (data.font) {
             document.getElementById('font').value = data.font;
+        }
+        if (data.customFont) {
+            document.getElementById('customFont').value = data.customFont;
+            const customOption = document.createElement('option');
+            customOption.value = data.customFont;
+            customOption.text = data.customFont;
+            if (data.font === data.customFont) {
+                customOption.selected = true;
+            }
+            document.getElementById('font').add(customOption);
         }
         if (data.backgroundImageUrl) {
             document.getElementById('backgroundImageUrl').value = data.backgroundImageUrl;
@@ -26,6 +36,7 @@ function loadCustomizations() {
         }
     });
 }
+
 
 function saveSettings() {
     const font = document.getElementById('font').value;
